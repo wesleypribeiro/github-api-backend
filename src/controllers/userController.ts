@@ -3,11 +3,12 @@ import axios from "axios";
 import asyncHandler from "../middlewares/asyncHandler";
 import { extractSinceFromLinkHeader } from "../utils/extractSinceFromLinkHeader";
 
-const APIURL = 'https://api.github.com/users?page=';
+const APIURL = 'https://api.github.com/users';
 
 export const getAllUsers = asyncHandler(async (req: Request, res: Response) => {
+
   const { page = '0', since } = req.query;
-  const nextPageUrl = `${APIURL}${page}${since ? `&since=${since}` : ''}`;
+  const nextPageUrl = `${APIURL}?page=${page}${since ? `&since=${since}` : ''}`;
 
   const { data, headers: { link } } = await axios.get(nextPageUrl);
 

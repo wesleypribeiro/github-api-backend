@@ -3,9 +3,9 @@ import { getAllUsers, getUserById, getUserRepos } from "../controllers/userContr
 
 const router = express.Router();
 
-router.get("/", getAllUsers);
-
 router.get("/:username/details", getUserById);
+
+router.get("/", getAllUsers);
 
 router.get("/:username/repos", getUserRepos);
 
