@@ -7,10 +7,16 @@ const APIURL = 'https://api.github.com/users';
 
 export const getAllUsers = asyncHandler(async (req: Request, res: Response) => {
 
-  const { page = '0', since } = req.query;
+  const since = req.query.since;
+  const page = req.query.page;
   const nextPageUrl = `${APIURL}?page=${page}${since ? `&since=${since}` : ''}`;
 
-  const { data, headers: { link } } = await axios.get(nextPageUrl);
+  const { data, headers: { link } } = await axios.get(APIURL, {
+    params: {
+      since,
+      page
+    }
+  });
 
   const nextSince = extractSinceFromLinkHeader(link);
 
